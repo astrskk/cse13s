@@ -113,7 +113,7 @@ int main(int argc, char **argv) {
             printf("pi_madhava() terms = %d\n", pi_madhava_terms());
         }
         printf("pi_euler() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_euler(), M_PI,
-            M_PI - pi_madhava());
+            M_PI - pi_euler());
         if (s) {
             printf("pi_euler() terms = %d\n", pi_euler_terms());
         }
