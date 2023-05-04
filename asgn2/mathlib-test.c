@@ -122,7 +122,7 @@ int main(int argc, char **argv) {
         if (s) {
             printf("pi_viete() terms = %d\n", pi_viete_factors());
         }
-        printf("pi_wallis() = %16.15lf, M_PI, %16.15lf, diff = %16.15lf\n", pi_wallis(), M_PI,
+        printf("pi_wallis() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_wallis(), M_PI,
             M_PI - pi_wallis());
         if (s) {
             printf("pi_wallis() terms = %d\n", pi_wallis_factors());
@@ -131,7 +131,7 @@ int main(int argc, char **argv) {
             printf("sqrt_newton(%.2lf) = %16.15lf, sqrt(%.2lf) = %16.15lf, diff = %16.15lf\n", i,
                 sqrt_newton(i), i, sqrt(i), sqrt(i) - sqrt_newton(i));
             if (s) {
-                printf("sqrt_newton_iters() = %d\n", sqrt_newton_iters());
+                printf("sqrt_newton() terms = %d\n", sqrt_newton_iters());
             }
         }
         return 0;
@@ -171,7 +171,7 @@ int main(int argc, char **argv) {
         }
     }
     if (w) {
-        printf("pi_wallis() = %16.15lf, M_PI, %16.15lf, diff = %16.15lf\n", pi_wallis(), M_PI,
+        printf("pi_wallis() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_wallis(), M_PI,
             M_PI - pi_wallis());
         if (s) {
             printf("pi_wallis() terms = %d\n", pi_wallis_factors());
@@ -182,7 +182,7 @@ int main(int argc, char **argv) {
             printf("sqrt_newton(%.2lf) = %16.15lf, sqrt(%.2lf) = %16.15lf, diff = %16.15lf\n", i,
                 sqrt_newton(i), i, sqrt(i), sqrt(i) - sqrt_newton(i));
             if (s) {
-                printf("sqrt_newton_iters() = %d\n", sqrt_newton_iters());
+                printf("sqrt_newton() terms = %d\n", sqrt_newton_iters());
             }
         }
     }
