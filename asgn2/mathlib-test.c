@@ -98,38 +98,38 @@ int main(int argc, char **argv) {
         return 0;
     }
     if (a) {
-        printf("e() = %16.15lf, M_E = %16.15lf, diff = %16.15lf\n", e(), M_E, fabs(e() - M_E));
+        printf("e() = %16.15lf, M_E = %16.15lf, diff = %16.15lf\n", e(), M_E, M_E - e());
         if (s) {
             printf("e() terms = %d\n", e_terms());
         }
         printf("pi_bbp() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_bbp(), M_PI,
-            fabs(pi_bbp() - M_PI));
+            M_PI - pi_bbp());
         if (s) {
             printf("pi_bbp() terms = %d\n", pi_bbp_terms());
         }
         printf("pi_madhava() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_madhava(), M_PI,
-            fabs(pi_madhava() - M_PI));
+            M_PI - pi_madhava());
         if (s) {
             printf("pi_madhava() terms = %d\n", pi_madhava_terms());
         }
         printf("pi_euler() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_euler(), M_PI,
-            fabs(pi_euler() - M_PI));
+            M_PI - pi_madhava());
         if (s) {
             printf("pi_euler() terms = %d\n", pi_euler_terms());
         }
         printf("pi_viete() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_viete(), M_PI,
-            fabs(pi_viete() - M_PI));
+            M_PI - pi_viete());
         if (s) {
             printf("pi_viete() terms = %d\n", pi_viete_factors());
         }
         printf("pi_wallis() = %16.15lf, M_PI, %16.15lf, diff = %16.15lf\n", pi_wallis(), M_PI,
-            fabs(pi_wallis() - M_PI));
+            M_PI - pi_wallis());
         if (s) {
             printf("pi_wallis() terms = %d\n", pi_wallis_factors());
         }
         for (double i = 0.0; i <= 9.95; i += 0.1) {
             printf("sqrt_newton(%.2lf) = %16.15lf, sqrt(%.2lf) = %16.15lf, diff = %16.15lf\n", i,
-                sqrt_newton(i), i, sqrt(i), fabs(sqrt_newton(i) - sqrt(i)));
+                sqrt_newton(i), i, sqrt(i), sqrt(i) - sqrt_newton(i));
             if (s) {
                 printf("sqrt_newton_iters() = %d\n", sqrt_newton_iters());
             }
@@ -137,42 +137,42 @@ int main(int argc, char **argv) {
         return 0;
     }
     if (e1) {
-        printf("e() = %16.15lf, M_E = %16.15lf, diff = %16.15lf\n", e(), M_E, fabs(e() - M_E));
+        printf("e() = %16.15lf, M_E = %16.15lf, diff = %16.15lf\n", e(), M_E, M_E - e());
         if (s) {
             printf("e() terms = %d\n", e_terms());
         }
     }
     if (b) {
         printf("pi_bbp() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_bbp(), M_PI,
-            fabs(pi_bbp() - M_PI));
+            M_PI - pi_bbp());
         if (s) {
             printf("pi_bbp() terms = %d\n", pi_bbp_terms());
         }
     }
     if (m) {
         printf("pi_madhava() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_madhava(), M_PI,
-            fabs(pi_madhava() - M_PI));
+            M_PI - pi_madhava());
         if (s) {
             printf("pi_madhava() terms = %d\n", pi_madhava_terms());
         }
     }
     if (r) {
         printf("pi_euler() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_euler(), M_PI,
-            fabs(pi_euler() - M_PI));
+            M_PI - pi_euler());
         if (s) {
             printf("pi_euler() terms = %d\n", pi_euler_terms());
         }
     }
     if (v) {
         printf("pi_viete() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_viete(), M_PI,
-            fabs(pi_viete() - M_PI));
+            M_PI - pi_viete());
         if (s) {
             printf("pi_viete() terms = %d\n", pi_viete_factors());
         }
     }
     if (w) {
         printf("pi_wallis() = %16.15lf, M_PI, %16.15lf, diff = %16.15lf\n", pi_wallis(), M_PI,
-            fabs(pi_wallis() - M_PI));
+            M_PI - pi_wallis());
         if (s) {
             printf("pi_wallis() terms = %d\n", pi_wallis_factors());
         }
@@ -180,7 +180,7 @@ int main(int argc, char **argv) {
     if (n) {
         for (double i = 0.0; i <= 9.95; i += 0.1) {
             printf("sqrt_newton(%.2lf) = %16.15lf, sqrt(%.2lf) = %16.15lf, diff = %16.15lf\n", i,
-                sqrt_newton(i), i, sqrt(i), fabs(sqrt_newton(i) - sqrt(i)));
+                sqrt_newton(i), i, sqrt(i), sqrt(i) - sqrt_newton(i));
             if (s) {
                 printf("sqrt_newton_iters() = %d\n", sqrt_newton_iters());
             }
