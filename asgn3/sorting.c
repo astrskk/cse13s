@@ -15,9 +15,9 @@
 
 int main(int argc, char **argv) {
 
-    enum sorts { insert = 0, shell, heap, quick, batcher };
+    enum sorts { insert = 0, heap, shell, quick, batcher };
     char *sort_names[]
-        = { "Insertion Sort", "Shell Sort", "Heap Sort", "Quick Sort", "Batcher Sort" };
+        = { "Insertion Sort", "Heap Sort", "Shell Sort", "Quick Sort", "Batcher Sort" };
     int opt = 0;
 
     Set set = set_empty();
@@ -42,11 +42,11 @@ int main(int argc, char **argv) {
             args = 1;
             break;
         case 's':
-            set = set_insert(set, 1);
+            set = set_insert(set, 2);
             args = 1;
             break;
         case 'h':
-            set = set_insert(set, 2);
+            set = set_insert(set, 1);
             args = 1;
             break;
         case 'q':
@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
     if (num_elems > size) {
         num_elems = size;
     }
-    srandom((unsigned) seed);
+    srandom(seed);
 
     if (help || args == 0) {
         printf("By running './sorting <flag1> <flag2> ..' you can input the following flags to "
@@ -104,19 +104,19 @@ int main(int argc, char **argv) {
                 for (uint32_t i = 0; i < size; i++) {
                     list[i] = ((uint32_t) random() & 0x3FFFFFFF);
                 }
-                //			for (uint32_t i = 0; i < size; i++) {
-                //				printf("%u", list[i]);
-                //			}
+                for (uint32_t i = 0; i < size; i++) {
+                    //                	printf("%u\n", list[i]);
+                }
                 if (i == insert) {
                     insertion_sort(&stats, list, size);
                     sorted = 1;
                     print_stats(&stats, sort_names[i], num_elems);
-                } else if (i == shell) {
-                    shell_sort(&stats, list, size);
-                    sorted = 1;
-                    print_stats(&stats, sort_names[i], num_elems);
                 } else if (i == heap) {
                     heap_sort(&stats, list, size);
+                    sorted = 1;
+                    print_stats(&stats, sort_names[i], num_elems);
+                } else if (i == shell) {
+                    shell_sort(&stats, list, size);
                     sorted = 1;
                     print_stats(&stats, sort_names[i], num_elems);
                 } else if (i == quick) {
