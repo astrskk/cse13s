@@ -104,29 +104,29 @@ int main(int argc, char **argv) {
                 for (uint32_t i = 0; i < size; i++) {
                     list[i] = ((uint32_t) random() & 0x3FFFFFFF);
                 }
-                for (uint32_t i = 0; i < size; i++) {
-                    //                	printf("%u\n", list[i]);
-                }
+                // for (uint32_t i = 0; i < size; i++) {
+                //                	printf("%u\n", list[i]);
+                // }
                 if (i == insert) {
                     insertion_sort(&stats, list, size);
                     sorted = 1;
-                    print_stats(&stats, sort_names[i], num_elems);
+                    print_stats(&stats, sort_names[i], size);
                 } else if (i == heap) {
                     heap_sort(&stats, list, size);
                     sorted = 1;
-                    print_stats(&stats, sort_names[i], num_elems);
+                    print_stats(&stats, sort_names[i], size);
                 } else if (i == shell) {
                     shell_sort(&stats, list, size);
                     sorted = 1;
-                    print_stats(&stats, sort_names[i], num_elems);
+                    print_stats(&stats, sort_names[i], size);
                 } else if (i == quick) {
                     quick_sort(&stats, list, size);
                     sorted = 1;
-                    print_stats(&stats, sort_names[i], num_elems);
+                    print_stats(&stats, sort_names[i], size);
                 } else if (i == batcher) {
                     batcher_sort(&stats, list, size);
                     sorted = 1;
-                    print_stats(&stats, sort_names[i], num_elems);
+                    print_stats(&stats, sort_names[i], size);
                 }
                 if (sorted) {
                     for (uint32_t e = 0; e < num_elems; e++) {
@@ -138,7 +138,9 @@ int main(int argc, char **argv) {
                 }
                 sorted = 0;
                 free(list);
-                printf("\n");
+                if (num_elems != 0) {
+                    printf("\n");
+                }
             }
         }
     }
