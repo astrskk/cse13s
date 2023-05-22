@@ -81,21 +81,23 @@ void stack_copy(Stack *dst, const Stack *src) {
     if (stack_empty(dst) == false) {
         //printf("empty != 0");
         uint32_t x;
-        for (uint32_t i = 0; i < stack_size(dst); i++) {
-            if (stack_empty(dst)) {
-                //printf("if empty do nothing");
+        uint32_t y = stack_size(dst);
+        for (uint32_t i = 0; i < y; i++) {
+            if (stack_empty(dst) == true) {
+                //printf("if empty do nothing\n");
             } else {
                 stack_pop(dst, &x);
-                //printf("popped");
+                //printf("popped %u\n", x);
             }
         }
     }
     
     for (uint32_t i = 0; i < stack_size(src); i++) {
         //printf("pushed");
+        //printf("pushing %u\n", src->items[i]);
         stack_push(dst, src->items[i]);
     }
-    dst->top = src->top;
+    //dst->top = src->top;
 }
 
 void stack_print(const Stack *s, FILE *f, char *vals[]) {
