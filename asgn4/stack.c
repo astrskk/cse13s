@@ -77,7 +77,7 @@ uint32_t stack_size(const Stack *s) {
 
 void stack_copy(Stack *dst, const Stack *src) {
     assert(dst->capacity >= stack_size(src));
-    printf("assert passed\n");
+    //printf("assert passed\n");
     if (stack_empty(dst) == false) {
         //printf("empty != 0");
         uint32_t x;
@@ -86,15 +86,16 @@ void stack_copy(Stack *dst, const Stack *src) {
                 //printf("if empty do nothing");
             } else {
                 stack_pop(dst, &x);
-                printf("popped");
+                //printf("popped");
             }
         }
     }
     
     for (uint32_t i = 0; i < stack_size(src); i++) {
-        printf("pushed");
+        //printf("pushed");
         stack_push(dst, src->items[i]);
     }
+    dst->top = src->top;
 }
 
 void stack_print(const Stack *s, FILE *f, char *vals[]) {
