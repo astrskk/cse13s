@@ -1,97 +1,100 @@
 #include "graph.h"
+
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 typedef struct graph {
-	uint32_t vertices;
-	bool directed;
-	bool *visited;
-	char **names;
-	uint32_t **weights;
+    uint32_t vertices;
+    bool directed;
+    bool *visited;
+    char **names;
+    uint32_t **weights;
 } Graph;
 
-Graph *graph_create(uint32_t vertices, bool directed){
-	Graph *g = calloc(1, sizeof(Graph));
-	g->vertices = vertices;
-	g->directed = directed;
-	g->visited = calloc(vertices, sizeof(bool));
-	g->names = calloc(vertices, sizeof(char *));
-	g->weights = calloc(vertices, sizeof(g->weights[0]));
+Graph *graph_create(uint32_t vertices, bool directed) {
+    Graph *g = calloc(1, sizeof(Graph));
+    g->vertices = vertices;
+    g->directed = directed;
+    g->visited = calloc(vertices, sizeof(bool));
+    g->names = calloc(vertices, sizeof(char *));
+    g->weights = calloc(vertices, sizeof(g->weights[0]));
 
-	for (uint32_t i = 0; i < vertices; i++){
-		g->weights[i] = calloc(vertices, sizeof(g->weights[0][0]));
-	}
+    for (uint32_t i = 0; i < vertices; i++) {
+        g->weights[i] = calloc(vertices, sizeof(g->weights[0][0]));
+    }
 
-	return g;
+    return g;
 }
 
-void graph_free(Graph **gp){
-	if(gp != NULL && *gp != NULL){
-		if((*gp)->vertices){
-			if((*gp)->weights){
-				for (uint32_t i = 0; i < (*gp)->vertices; i++){
-					free((*gp)->weights[i]);
-				}
-				free((*gp)->weights);
-			}
-			if((*gp)->names){
-				for (uint32_t i = 0; i < (*gp)->vertices; i++){
-					free((*gp)->names[i]);
-				}
-				free((*gp)->names);
-			}
-			if((*gp)->visited){
-				free((*gp)->visited);
-			}
-		free(*gp);
-		}
-	}
-	if (gp != NULL){
-		*gp = NULL;
-	}
+void graph_free(Graph **gp) {
+    if (gp != NULL && *gp != NULL) {
+        for (uint32_t i = 0; i < (*gp)->vertices; i++) {
+            free((*gp)->weights[i]);
+        }
+        if ((*gp)->weights) {
+            free((*gp)->weights);
+            (*gp)->weights = NULL;
+        }
+        for (uint32_t i = 0; i < (*gp)->vertices; i++) {
+            free((*gp)->names[i]);
+        }
+        if ((*gp)->names) {
+            free((*gp)->names);
+            (*gp)->names = NULL;
+        }
+        if ((*gp)->visited) {
+            free((*gp)->visited);
+            (*gp)->visited = NULL;
+        }
+
+        free(*gp);
+    }
+    if (gp != NULL) {
+        *gp = NULL;
+    }
 }
 
-uint32_t graph_vertices(const Graph *g){
-	return g->vertices;
+uint32_t graph_vertices(const Graph *g) {
+    return g->vertices;
 }
 
-void graph_add_vertex(Graph *g, const char *name, uint32_t v){
-	if (g->names[v]){
-		free(g->names[v]);
-	}
-	g->names[v] = strdup(name);
+void graph_add_vertex(Graph *g, const char *name, uint32_t v) {
+    if (g->names[v]) {
+        free(g->names[v]);
+    }
+    g->names[v] = strdup(name);
 }
 
-const char* graph_get_vertex_name(const Graph *g, uint32_t v){
-	return g->names[v];
+const char *graph_get_vertex_name(const Graph *g, uint32_t v) {
+    return g->names[v];
 }
 
-char **graph_get_names(const Graph *g){
-	return g->names;
+char **graph_get_names(const Graph *g) {
+    return g->names;
 }
 
-void graph_add_edge(Graph *g, uint32_t start, uint32_t end, uint32_t weight){
-	g->weights[start][end] = weight;
-	if(g->directed == false){
-		g->weights[end][start] = weight;
-	}
+void graph_add_edge(Graph *g, uint32_t start, uint32_t end, uint32_t weight) {
+    g->weights[start][end] = weight;
+    if (g->directed == false) {
+        g->weights[end][start] = weight;
+    }
 }
 
-uint32_t graph_get_weight(const Graph *g, uint32_t start, uint32_t end){
-	return g->weights[start][end];
+uint32_t graph_get_weight(const Graph *g, uint32_t start, uint32_t end) {
+    return g->weights[start][end];
 }
 
-void graph_visit_vertex(Graph *g, uint32_t v){
-	g->visited[v] = true;
+void graph_visit_vertex(Graph *g, uint32_t v) {
+    g->visited[v] = true;
 }
 
-void graph_unvisit_vertex(Graph *g, uint32_t v){
-	g->visited[v] = false;
+void graph_unvisit_vertex(Graph *g, uint32_t v) {
+    g->visited[v] = false;
 }
 
-bool graph_visited(const Graph *g, uint32_t v){
-	return g->visited[v];
+bool graph_visited(const Graph *g, uint32_t v) {
+    return g->visited[v];
 }
 
 void graph_print(const Graph *g) {
@@ -99,10 +102,8 @@ void graph_print(const Graph *g) {
         printf("%s\n", graph_get_vertex_name(g, i));
     }
     uint32_t total_weight = 0;
-    for (uint32_t i = 0; i < (graph_vertices(g) - 1); i++){
-    	total_weight += graph_get_weight(g, i, i+1) + graph_get_weight(g, i+1, i);
-    	printf("%u\n", total_weight);
+    for (uint32_t i = 0; i < (graph_vertices(g) - 1); i++) {
+        total_weight += graph_get_weight(g, i, i + 1) + graph_get_weight(g, i + 1, i);
+        printf("%u\n", total_weight);
     }
 }
-
-

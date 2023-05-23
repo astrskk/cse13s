@@ -91,7 +91,7 @@ void stack_copy(Stack *dst, const Stack *src) {
             }
         }
     }
-    
+
     for (uint32_t i = 0; i < stack_size(src); i++) {
         //printf("pushed");
         //printf("pushing %u\n", src->items[i]);
