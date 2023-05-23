@@ -14,7 +14,7 @@
 #define OPTIONS "i:o:dh"
 
 uint32_t min_weight = -1;
-Path *best_path = NULL;
+Path *g_best_path = NULL;
 
 void dfshelper(uint32_t vertex, Graph *g, Path *p) {
     if (graph_vertices(g) == path_vertices(p)) {
@@ -22,10 +22,10 @@ void dfshelper(uint32_t vertex, Graph *g, Path *p) {
             path_add(p, 0, g);
             if (min_weight < 0 || path_distance(p) < min_weight) {
                 min_weight = path_distance(p);
-                if (best_path == NULL) {
-                    best_path = path_create(graph_vertices(g) + 1);
+                if (g_best_path == NULL) {
+                    g_best_path = path_create(graph_vertices(g) + 1);
                 }
-                path_copy(best_path, p);
+                path_copy(g_best_path, p);
             }
             path_remove(p, g);
         }
@@ -119,7 +119,7 @@ int main(int argc, char **argv) {
     Graph *g = graph_create(num_vertices, directed);
     char vertex[100];
     for (uint32_t i = 0; i < num_vertices; i++) {
-        //got fgets from discord help
+        //got fgets from discord help (ben)
         if (fgets(vertex, sizeof(vertex), infile) == NULL) {
             fprintf(stderr, "tsp: error reading in vertex name\n");
             exit(1);
@@ -133,32 +133,32 @@ int main(int argc, char **argv) {
         fprintf(stderr, "tsp: error reading in num edges");
         exit(1);
     }
-    for (uint32_t i = 0; i < num_edges; i++) {
-        uint32_t start = 0;
-        uint32_t end = 0;
-        uint32_t weight = 0;
+    uint32_t start = 0;
+    uint32_t end = 0;
+    uint32_t weight = 0;
+    for (uint32_t i = 0; i < num_edges; i++) {        
         if (fscanf(infile, "%u %u %u", &start, &end, &weight) != 3) {
             fprintf(stderr, "tsp: error reading adjacency list");
+            exit(1);
         }
         graph_add_edge(g, start, end, weight);
     }
     //graph_print(g);
-    //dfs
+    
+    
 
-    best_path = path_create(graph_vertices(g) + 1);
+    Path *best_path = path_create(graph_vertices(g) + 1);
     path_add(best_path, 0, g);
-    printf("got here1");
-
-    //path_print(best_path, outfile, g);
-
-    printf("got here");
+    //run dfs
     dfs(0, g, best_path, 0);
-
-    if (best_path == NULL) {
-        fprintf(outfile, "lost");
+    //path_print(g_best_path, outfile, g);
+    
+    if (g_best_path == NULL || path_vertices(g_best_path) == graph_vertices(g) + 1) {
+        fprintf(outfile, "No path found! Alissa is lost!\n");
     } else {
-        path_print(best_path, outfile, g);
+        path_print(g_best_path, outfile, g);
     }
+    
     if (infile != stdin) {
         fclose(infile);
     }
@@ -167,5 +167,8 @@ int main(int argc, char **argv) {
         fclose(outfile);
     }
     graph_free(&g);
+    path_free(&g_best_path);
     path_free(&best_path);
+    
+    return 0;
 }

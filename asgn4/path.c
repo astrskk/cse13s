@@ -71,19 +71,32 @@ void path_copy(Path *dst, const Path *src) {
 
 void path_print(const Path *p, FILE *outfile, const Graph *g) {
     fprintf(outfile, "Alissa starts at:\n");
-    Stack *temp = stack_create(stack_size(p->vertices));
-    Stack *temp2 = stack_create(stack_size(p->vertices));
-    stack_copy(temp, p->vertices);
-    uint32_t *x = 0;
-    for (uint32_t i = 0; i < stack_size(p->vertices); i++) {
-        stack_pop(temp, x);
-        stack_push(temp2, *x);
-    }
-    for (uint32_t i = 0; i < stack_size(p->vertices); i++) {
-        stack_pop(temp2, x);
-        fprintf(outfile, "%s\n", graph_get_vertex_name(g, *x));
-    }
+    //fprintf(outfile, "p->vertices is: %u\n", stack_size(p->vertices)); 
+    //stack_print(p, 
+    //Stack *temp = stack_create(stack_size(p->vertices));
+    //Stack *temp2 = stack_create(stack_size(p->vertices));
+    stack_print(p->vertices, outfile, graph_get_names(g));
+    //stack_print(temp, stdout, graph_get_names(g));
+    //stack_print(temp2, stdout, graph_get_names(g));
+    
+    //stack_copy(temp, p->vertices);
+    //printf("after copy\n");
+    //stack_print(temp, stdout, graph_get_names(g));
+    
+    //fprintf(outfile, "got here\n");
+    //uint32_t *x = 0;
+    //uint32_t size = stack_size(temp);
+    //printf("size %u\n", size);
+    //for (uint32_t i = 0; i < size; i++) {
+    //	printf("inside loop");
+    //    stack_pop(temp, x);
+    //    stack_push(temp2, *x);
+    //}
+    //for (uint32_t i = 0; i < size; i++) {
+    //    stack_pop(temp2, x);
+    //   fprintf(outfile, "%s\n", graph_get_vertex_name(g, *x));
+    //}
     fprintf(outfile, "Total distance: %" PRIu32 "\n", p->total_weight);
-    stack_free(&temp);
-    stack_free(&temp2);
+    //stack_free(&temp);
+    //stack_free(&temp2);
 }

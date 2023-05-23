@@ -102,8 +102,11 @@ void graph_print(const Graph *g) {
         printf("%s\n", graph_get_vertex_name(g, i));
     }
     uint32_t total_weight = 0;
-    for (uint32_t i = 0; i < (graph_vertices(g) - 1); i++) {
-        total_weight += graph_get_weight(g, i, i + 1) + graph_get_weight(g, i + 1, i);
-        printf("%u\n", total_weight);
+    for (uint32_t i = 0; i < (graph_vertices(g)); i++) {
+	for(uint32_t j = 0; j < (graph_vertices(g)); j++){
+		total_weight = g->weights[i][j];
+        	printf("| %u |", total_weight);
+    	}
+    	printf("\n");
     }
 }
