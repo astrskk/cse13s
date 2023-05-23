@@ -139,6 +139,7 @@ int main(int argc, char **argv) {
         }
         graph_add_edge(g, start, end, weight);
     }
+
     //graph_print(g);
 
     Path *path = path_create(graph_vertices(g) + 1);

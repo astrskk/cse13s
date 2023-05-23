@@ -103,10 +103,10 @@ void graph_print(const Graph *g) {
     }
     uint32_t total_weight = 0;
     for (uint32_t i = 0; i < (graph_vertices(g)); i++) {
-        for (uint32_t j = 0; j < (graph_vertices(g)); j++) {
-            total_weight = g->weights[i][j];
-            printf("| %u |", total_weight);
-        }
-        printf("\n");
+	for(uint32_t j = 0; j < (graph_vertices(g)); j++){
+		total_weight = g->weights[i][j];
+        	printf("| %u |", total_weight);
+    	}
+    	printf("\n");
     }
 }
