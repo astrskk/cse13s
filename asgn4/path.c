@@ -71,18 +71,18 @@ void path_copy(Path *dst, const Path *src) {
 
 void path_print(const Path *p, FILE *outfile, const Graph *g) {
     fprintf(outfile, "Alissa starts at:\n");
-    //fprintf(outfile, "p->vertices is: %u\n", stack_size(p->vertices)); 
-    //stack_print(p, 
+    //fprintf(outfile, "p->vertices is: %u\n", stack_size(p->vertices));
+    //stack_print(p,
     //Stack *temp = stack_create(stack_size(p->vertices));
     //Stack *temp2 = stack_create(stack_size(p->vertices));
     stack_print(p->vertices, outfile, graph_get_names(g));
     //stack_print(temp, stdout, graph_get_names(g));
     //stack_print(temp2, stdout, graph_get_names(g));
-    
+
     //stack_copy(temp, p->vertices);
     //printf("after copy\n");
     //stack_print(temp, stdout, graph_get_names(g));
-    
+
     //fprintf(outfile, "got here\n");
     //uint32_t *x = 0;
     //uint32_t size = stack_size(temp);

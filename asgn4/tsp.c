@@ -16,32 +16,32 @@
 uint32_t min = -1;
 Path *best_path = NULL;
 
-void dfs(uint32_t vertex, Graph *g, Path *p){
-	if(graph_vertices(g) == path_vertices(p)){
-		if(graph_get_weight(g, vertex, 0) != 0){
-			path_add(p, 0, g);
-			if (min < 0 || path_distance(p) < min){
-				min = path_distance(p);
-				if(best_path == NULL){
-					best_path = path_create(graph_vertices(g)+1);
-				}
-				path_copy(best_path, p);
-			}
-			path_remove(p, g);
-		}
-	}
-	
-	graph_visit_vertex(g, vertex);
-	for (uint32_t i = 0; i < graph_vertices(g); i++){
-		if (graph_get_weight(g, vertex, i) != 0){
-			if (!graph_visited(g, i)){
-				path_add(p, i, g);
-				dfs(i, g, p);
-				path_remove(p, g);
-			}
-		}
-	}
-	graph_unvisit_vertex(g, vertex);
+void dfs(uint32_t vertex, Graph *g, Path *p) {
+    if (graph_vertices(g) == path_vertices(p)) {
+        if (graph_get_weight(g, vertex, 0) != 0) {
+            path_add(p, 0, g);
+            if (min < 0 || path_distance(p) < min) {
+                min = path_distance(p);
+                if (best_path == NULL) {
+                    best_path = path_create(graph_vertices(g) + 1);
+                }
+                path_copy(best_path, p);
+            }
+            path_remove(p, g);
+        }
+    }
+
+    graph_visit_vertex(g, vertex);
+    for (uint32_t i = 0; i < graph_vertices(g); i++) {
+        if (graph_get_weight(g, vertex, i) != 0) {
+            if (!graph_visited(g, i)) {
+                path_add(p, i, g);
+                dfs(i, g, p);
+                path_remove(p, g);
+            }
+        }
+    }
+    graph_unvisit_vertex(g, vertex);
 }
 
 int main(int argc, char **argv) {
@@ -85,12 +85,13 @@ int main(int argc, char **argv) {
     }
 
     if (arguments == 0) {
-        fprintf(stderr, "After running ./tsp you can include any of these flags\n-i <inputfile> :  Sets the "
-               "file to read from (input file). Requires a filename as an argument. The default "
-               "file to read from is stdin\n-o <outputfile> : Sets the file to write to (output "
-               "file). Requires a filename as an argument. The default file to write to is "
-               "stdout\n-d : Treats all graphs as directed. The default is undirected graphs.\n-h "
-               ": Prints this help 	message.");
+        fprintf(stderr,
+            "After running ./tsp you can include any of these flags\n-i <inputfile> :  Sets the "
+            "file to read from (input file). Requires a filename as an argument. The default "
+            "file to read from is stdin\n-o <outputfile> : Sets the file to write to (output "
+            "file). Requires a filename as an argument. The default file to write to is "
+            "stdout\n-d : Treats all graphs as directed. The default is undirected graphs.\n-h "
+            ": Prints this help 	message.");
         return 0;
     }
     if (help == true) {
@@ -131,7 +132,7 @@ int main(int argc, char **argv) {
     uint32_t start = 0;
     uint32_t end = 0;
     uint32_t weight = 0;
-    for (uint32_t i = 0; i < num_edges; i++) {        
+    for (uint32_t i = 0; i < num_edges; i++) {
         if (fscanf(infile, "%u %u %u", &start, &end, &weight) != 3) {
             fprintf(stderr, "tsp: error reading adjacency list");
             exit(1);
@@ -139,21 +140,19 @@ int main(int argc, char **argv) {
         graph_add_edge(g, start, end, weight);
     }
     //graph_print(g);
-    
-    
 
     Path *path = path_create(graph_vertices(g) + 1);
     path_add(path, 0, g);
     //run dfs
     dfs(0, g, path);
     //path_print(best_path, outfile, g);
-    
+
     if (best_path == NULL || path_vertices(best_path) == graph_vertices(g) + 1) {
         fprintf(outfile, "No path found! Alissa is lost!\n");
     } else {
         path_print(best_path, outfile, g);
     }
-    
+
     if (infile != stdin) {
         fclose(infile);
     }
@@ -164,6 +163,6 @@ int main(int argc, char **argv) {
     graph_free(&g);
     path_free(&best_path);
     path_free(&path);
-    
+
     return 0;
 }
