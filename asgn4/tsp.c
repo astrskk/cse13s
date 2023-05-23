@@ -90,7 +90,7 @@ int main(int argc, char **argv) {
     }
 
     if (arguments == 0) {
-        printf("After running ./tsp you can include any of these flags\n-i <inputfile> :  Sets the "
+        fprintf(stderr, "After running ./tsp you can include any of these flags\n-i <inputfile> :  Sets the "
                "file to read from (input file). Requires a filename as an argument. The default "
                "file to read from is stdin\n-o <outputfile> : Sets the file to write to (output "
                "file). Requires a filename as an argument. The default file to write to is "
