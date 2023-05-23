@@ -13,40 +13,35 @@
 #include <unistd.h>
 #define OPTIONS "i:o:dh"
 
-uint32_t min_weight = -1;
-Path *g_best_path = NULL;
+uint32_t min = -1;
+Path *best_path = NULL;
 
-void dfshelper(uint32_t vertex, Graph *g, Path *p) {
-    if (graph_vertices(g) == path_vertices(p)) {
-        if (graph_get_weight(g, vertex, 0) != 0) {
-            path_add(p, 0, g);
-            if (min_weight < 0 || path_distance(p) < min_weight) {
-                min_weight = path_distance(p);
-                if (g_best_path == NULL) {
-                    g_best_path = path_create(graph_vertices(g) + 1);
-                }
-                path_copy(g_best_path, p);
-            }
-            path_remove(p, g);
-        }
-    }
-}
-
-void dfs(uint32_t vertex, Graph *g, Path *p, uint32_t iter) {
-    printf("got to iter: %u\n", iter);
-    dfshelper(vertex, g, p);
-    graph_visit_vertex(g, vertex);
-    for (uint32_t i = 0; i < graph_vertices(g); i++) {
-        if (graph_get_weight(g, vertex, i) != 0) {
-            if (!graph_visited(g, i)) {
-                path_add(p, i, g);
-                dfs(i, g, p, iter + 1);
-                path_remove(p, g);
-            }
-        }
-    }
-    graph_unvisit_vertex(g, vertex);
-    printf("leaving on iter: %u\n", iter);
+void dfs(uint32_t vertex, Graph *g, Path *p){
+	if(graph_vertices(g) == path_vertices(p)){
+		if(graph_get_weight(g, vertex, 0) != 0){
+			path_add(p, 0, g);
+			if (min < 0 || path_distance(p) < min){
+				min = path_distance(p);
+				if(best_path == NULL){
+					best_path = path_create(graph_vertices(g)+1);
+				}
+				path_copy(best_path, p);
+			}
+			path_remove(p, g);
+		}
+	}
+	
+	graph_visit_vertex(g, vertex);
+	for (uint32_t i = 0; i < graph_vertices(g); i++){
+		if (graph_get_weight(g, vertex, i) != 0){
+			if (!graph_visited(g, i)){
+				path_add(p, i, g);
+				dfs(i, g, p);
+				path_remove(p, g);
+			}
+		}
+	}
+	graph_unvisit_vertex(g, vertex);
 }
 
 int main(int argc, char **argv) {
@@ -147,16 +142,16 @@ int main(int argc, char **argv) {
     
     
 
-    Path *best_path = path_create(graph_vertices(g) + 1);
-    path_add(best_path, 0, g);
+    Path *path = path_create(graph_vertices(g) + 1);
+    path_add(path, 0, g);
     //run dfs
-    dfs(0, g, best_path, 0);
-    //path_print(g_best_path, outfile, g);
+    dfs(0, g, path);
+    //path_print(best_path, outfile, g);
     
-    if (g_best_path == NULL || path_vertices(g_best_path) == graph_vertices(g) + 1) {
+    if (best_path == NULL || path_vertices(best_path) == graph_vertices(g) + 1) {
         fprintf(outfile, "No path found! Alissa is lost!\n");
     } else {
-        path_print(g_best_path, outfile, g);
+        path_print(best_path, outfile, g);
     }
     
     if (infile != stdin) {
@@ -167,8 +162,8 @@ int main(int argc, char **argv) {
         fclose(outfile);
     }
     graph_free(&g);
-    path_free(&g_best_path);
     path_free(&best_path);
+    path_free(&path);
     
     return 0;
 }
