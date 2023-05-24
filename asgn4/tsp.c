@@ -97,15 +97,15 @@ int main(int argc, char **argv) {
         }
     }
 
-   // if (arguments == 0) {
+    // if (arguments == 0) {
     //    fprintf(stderr,
-      //     "After running ./tsp you can include any of these flags\n-i <inputfile> :  Sets the "
-        ///    "file to read from (input file). Requires a filename as an argument. The default "
-           // "file to read from is stdin\n-o <outputfile> : Sets the file to write to (output "
-           // "file). Requires a filename as an argument. The default file to write to is "
-      //      "stdout\n-d : Treats all graphs as directed. The default is undirected graphs.\n-h "
+    //     "After running ./tsp you can include any of these flags\n-i <inputfile> :  Sets the "
+    ///    "file to read from (input file). Requires a filename as an argument. The default "
+    // "file to read from is stdin\n-o <outputfile> : Sets the file to write to (output "
+    // "file). Requires a filename as an argument. The default file to write to is "
+    //      "stdout\n-d : Treats all graphs as directed. The default is undirected graphs.\n-h "
     //        ": Prints this help 	message.");
-       // return 0;
+    // return 0;
     //}
     if (help == true) {
         printf("After running ./tsp you can include any of these flags\n-i <inputfile> :  Sets the "
