@@ -23,7 +23,7 @@ void dfshelper(uint32_t vertex, Graph *g, Path *p) {
         //printf("inside 1st helper\n");
         //printf("g, vertex is %u\n, weight is %u\n", vertex, graph_get_weight(g, vertex, 0));
         if (graph_get_weight(g, vertex, 0) != 0) {
-           // printf("inside 2nd helper\n");
+            // printf("inside 2nd helper\n");
             path_add(p, 0, g);
             if (min < 0 || path_distance(p) < min) {
                 //printf("inside 3rd helper\n");
