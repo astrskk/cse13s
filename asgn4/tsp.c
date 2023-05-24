@@ -16,13 +16,20 @@
 uint32_t min = -1;
 Path *best_path = NULL;
 
-void dfs(uint32_t vertex, Graph *g, Path *p) {
+void dfshelper(uint32_t vertex, Graph *g, Path *p) {
+    printf("graph vertices %u\n", graph_vertices(g));
+    printf("path vertices %u\n", path_vertices(p));
     if (graph_vertices(g) == path_vertices(p)) {
+        printf("inside 1st helper\n");
+        printf("g, vertex is %u\n, weight is %u\n", vertex, graph_get_weight(g, vertex, 0));
         if (graph_get_weight(g, vertex, 0) != 0) {
+            printf("inside 2nd helper\n");
             path_add(p, 0, g);
             if (min < 0 || path_distance(p) < min) {
+                printf("inside 3rd helper\n");
                 min = path_distance(p);
                 if (best_path == NULL) {
+                    printf("best path isnull\n");
                     best_path = path_create(graph_vertices(g) + 1);
                 }
                 path_copy(best_path, p);
@@ -30,13 +37,19 @@ void dfs(uint32_t vertex, Graph *g, Path *p) {
             path_remove(p, g);
         }
     }
+}
 
+void dfs(uint32_t vertex, Graph *g, Path *p) {
+    dfshelper(vertex, g, p);
     graph_visit_vertex(g, vertex);
     for (uint32_t i = 0; i < graph_vertices(g); i++) {
         if (graph_get_weight(g, vertex, i) != 0) {
+            //printf("inside dfs 1st\n");
             if (!graph_visited(g, i)) {
+                printf("adding dfs\n");
                 path_add(p, i, g);
                 dfs(i, g, p);
+                printf("removing path, i is %u\n", i);
                 path_remove(p, g);
             }
         }
@@ -136,19 +149,33 @@ int main(int argc, char **argv) {
         if (fscanf(infile, "%u %u %u", &start, &end, &weight) != 3) {
             fprintf(stderr, "tsp: error reading adjacency list");
             exit(1);
+        } else {
+            graph_add_edge(g, start, end, weight);
         }
-        graph_add_edge(g, start, end, weight);
     }
 
     //graph_print(g);
 
     Path *path = path_create(graph_vertices(g) + 1);
     path_add(path, 0, g);
+    //path_add(path, 1, g);
+    //path_add(path, 2, g);
+    //path_add(path, 3, g);
+    //path_remove(path, g);
+    //path_print(path, stdout, g);
+    //printf("\n");
+    //Path *path2 = path_create(graph_vertices(g) + 1);
+    //path_add(path2, 5, g);
+    //path_add(path2, 6, g);
+    //path_add(path2, 7, g);
+    //path_print(path2, stdout, g);
+    //path_copy(path2, path);
+    //path_print(path2, stdout, g);
     //run dfs
     dfs(0, g, path);
     //path_print(best_path, outfile, g);
 
-    if (best_path == NULL || path_vertices(best_path) == graph_vertices(g) + 1) {
+    if (best_path == NULL || path_vertices(best_path) != graph_vertices(g) + 1) {
         fprintf(outfile, "No path found! Alissa is lost!\n");
     } else {
         path_print(best_path, outfile, g);
