@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
 
     int opt = 0;
     bool help = false;
-    int arguments = 0;
+    //int arguments = 0;
     bool directed = false;
     FILE *infile = stdin;
     FILE *outfile = stdout;
@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
                 printf("infile broke");
             }
             assert(infile != NULL);
-            arguments = 1;
+            //arguments = 1;
             //printf("arguments is %u\n", arguments);
             break;
         case 'o':
@@ -83,30 +83,30 @@ int main(int argc, char **argv) {
                 printf("outfile broke");
             }
             assert(outfile != NULL);
-            arguments = 1;
+            //arguments = 1;
             break;
         case 'd':
             directed = true;
-            arguments = 1;
+            //arguments = 1;
             break;
         case 'h':
             help = true;
             //printf("help is true\noptarg is %s\n", optarg);
-            arguments = 1;
+            //arguments = 1;
             break;
         }
     }
 
-    if (arguments == 0) {
-        fprintf(stderr,
-            "After running ./tsp you can include any of these flags\n-i <inputfile> :  Sets the "
-            "file to read from (input file). Requires a filename as an argument. The default "
-            "file to read from is stdin\n-o <outputfile> : Sets the file to write to (output "
-            "file). Requires a filename as an argument. The default file to write to is "
-            "stdout\n-d : Treats all graphs as directed. The default is undirected graphs.\n-h "
-            ": Prints this help 	message.");
-        return 0;
-    }
+   // if (arguments == 0) {
+    //    fprintf(stderr,
+      //     "After running ./tsp you can include any of these flags\n-i <inputfile> :  Sets the "
+        ///    "file to read from (input file). Requires a filename as an argument. The default "
+           // "file to read from is stdin\n-o <outputfile> : Sets the file to write to (output "
+           // "file). Requires a filename as an argument. The default file to write to is "
+      //      "stdout\n-d : Treats all graphs as directed. The default is undirected graphs.\n-h "
+    //        ": Prints this help 	message.");
+       // return 0;
+    //}
     if (help == true) {
         printf("After running ./tsp you can include any of these flags\n-i <inputfile> :  Sets the "
                "file to read from (input file). Requires a filename as an argument. The default "
