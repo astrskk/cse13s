@@ -96,7 +96,7 @@ void path_print(const Path *p, FILE *outfile, const Graph *g) {
     //    stack_pop(temp2, x);
     //   fprintf(outfile, "%s\n", graph_get_vertex_name(g, *x));
     //}
-    fprintf(outfile, "Total distance: %" PRIu32 "\n", p->total_weight);
+    fprintf(outfile, "Total Distance: %" PRIu32 "\n", p->total_weight);
     //stack_free(&temp);
     //stack_free(&temp2);
 }
