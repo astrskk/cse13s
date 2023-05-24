@@ -17,19 +17,19 @@ uint32_t min = -1;
 Path *best_path = NULL;
 
 void dfshelper(uint32_t vertex, Graph *g, Path *p) {
-    printf("graph vertices %u\n", graph_vertices(g));
-    printf("path vertices %u\n", path_vertices(p));
+    //printf("graph vertices %u\n", graph_vertices(g));
+    //printf("path vertices %u\n", path_vertices(p));
     if (graph_vertices(g) == path_vertices(p)) {
-        printf("inside 1st helper\n");
-        printf("g, vertex is %u\n, weight is %u\n", vertex, graph_get_weight(g, vertex, 0));
+        //printf("inside 1st helper\n");
+        //printf("g, vertex is %u\n, weight is %u\n", vertex, graph_get_weight(g, vertex, 0));
         if (graph_get_weight(g, vertex, 0) != 0) {
-            printf("inside 2nd helper\n");
+           // printf("inside 2nd helper\n");
             path_add(p, 0, g);
             if (min < 0 || path_distance(p) < min) {
-                printf("inside 3rd helper\n");
+                //printf("inside 3rd helper\n");
                 min = path_distance(p);
                 if (best_path == NULL) {
-                    printf("best path isnull\n");
+                    //printf("best path isnull\n");
                     best_path = path_create(graph_vertices(g) + 1);
                 }
                 path_copy(best_path, p);
@@ -46,10 +46,10 @@ void dfs(uint32_t vertex, Graph *g, Path *p) {
         if (graph_get_weight(g, vertex, i) != 0) {
             //printf("inside dfs 1st\n");
             if (!graph_visited(g, i)) {
-                printf("adding dfs\n");
+                //printf("adding dfs\n");
                 path_add(p, i, g);
                 dfs(i, g, p);
-                printf("removing path, i is %u\n", i);
+                //printf("removing path, i is %u\n", i);
                 path_remove(p, g);
             }
         }
