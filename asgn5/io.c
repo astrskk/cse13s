@@ -139,15 +139,17 @@ void write_uint8(Buffer *buf, uint8_t x) {
             ssize_t rc = write(buf->fd, start, num_bytes);
             if (rc < 0) {
                 fprintf(stderr, "error rc < 0");
+                exit(1);
             }
             start += rc;
             num_bytes -= rc;
         } while (num_bytes > 0);
-
+        
         buf->offset = 0;
     }
     buf->a[buf->offset] = x;
     buf->offset++;
+    buf->num_remaining -= 1;
 }
 
 void write_uint16(Buffer *buf, uint16_t x) {

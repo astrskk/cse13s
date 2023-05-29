@@ -37,9 +37,10 @@ int main(int argc, char **argv) {
     }
 
     if (help) {
-        fprintf(stdout, "After running ./colorb you can include any of these flags\n-i <inputfile> "
+        printf("After running ./colorb you can include any of these flags\n-i <inputfile> "
                         ":  Sets the name of the input file to inputfile\n-o <outputfile> : Sets "
                         "the file to write to outputfile\n-h : Prints this help 	message.");
+        return 0;
     }
 
     Buffer *read_buffer = read_open(infile);

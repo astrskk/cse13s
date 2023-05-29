@@ -74,6 +74,7 @@ BMP *bmp_create(Buffer *buf) {
     uint8_t type1;
     uint8_t type2;
     read_uint8(buf, &type1);
+    
     read_uint8(buf, &type2);
 
     uint32_t skip32 = 0;
@@ -106,6 +107,31 @@ BMP *bmp_create(Buffer *buf) {
     assert(bitmap_header_size == 40);
     assert(bits_per_pixel == 8);
     assert(compression == 0);
+    
+    if (type1 != 'B'){
+    	free(bmp);
+    	exit(1);
+    }
+    if (type2 != 'M'){
+    	free(bmp);
+    	exit(1);
+    }
+    
+    if (bitmap_header_size != 40){
+    	free(bmp);
+    	exit(1);
+    }
+    
+    if (bits_per_pixel != 8){
+    	free(bmp);
+    	exit(1);
+    }
+    
+    if (compression != 0){
+    	free(bmp);
+    	exit(1);
+    }
+    
     uint32_t num_colors = colors_used;
     if (num_colors == 0) {
         num_colors = (1 << bits_per_pixel);
