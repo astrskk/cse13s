@@ -26,7 +26,7 @@ Buffer *read_open(const char *filename) {
         close(fd);
         return NULL;
     }
-    Buffer *b = (Buffer *) malloc(sizeof(Buffer));
+    Buffer *b = calloc(1, sizeof(Buffer));
     b->fd = fd;
     b->offset = 0;
     b->num_remaining = 0;
@@ -49,7 +49,7 @@ Buffer *write_open(const char *filename) {
         close(fd);
         return NULL;
     }
-    Buffer *b = (Buffer *) malloc(sizeof(Buffer));
+    Buffer *b = calloc(1, sizeof(Buffer));
     b->fd = fd;
     b->offset = 0;
     b->num_remaining = 0;
@@ -58,15 +58,20 @@ Buffer *write_open(const char *filename) {
 }
 
 void write_close(Buffer **pbuf) {
-    uint32_t size = sizeof(&(*pbuf)->a) / sizeof(&(*pbuf)->a[0]);
-    for (uint32_t i = 0; i < size; i++) {
-        if (&(*pbuf)->a[i] != NULL) {
-            write((*pbuf)->fd, &(*pbuf)->a, sizeof(&(*pbuf)->a[i]));
-        }
-    }
-
-    if (pbuf != NULL && *pbuf != NULL) {
-        free(*pbuf);
+    if (pbuf != NULL && *pbuf != NULL){
+    	uint8_t *start = (*pbuf)->a;
+    	uint32_t num_bytes = (*pbuf)->offset;
+	    while (num_bytes > 0){
+	    	ssize_t rc = write((*pbuf)->fd, start, num_bytes);
+	    	if (rc < 0){
+	    		fprintf(stderr, "write close error");
+	    		exit(1);
+	    	}
+	    	start += rc;
+	    	num_bytes -= rc;
+    		}
+    	close((*pbuf)->fd);
+    	free(*pbuf);
     }
     if (pbuf != NULL) {
         *pbuf = NULL;
