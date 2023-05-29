@@ -58,20 +58,20 @@ Buffer *write_open(const char *filename) {
 }
 
 void write_close(Buffer **pbuf) {
-    if (pbuf != NULL && *pbuf != NULL){
-    	uint8_t *start = (*pbuf)->a;
-    	uint32_t num_bytes = (*pbuf)->offset;
-	    while (num_bytes > 0){
-	    	ssize_t rc = write((*pbuf)->fd, start, num_bytes);
-	    	if (rc < 0){
-	    		fprintf(stderr, "write close error");
-	    		exit(1);
-	    	}
-	    	start += rc;
-	    	num_bytes -= rc;
-    		}
-    	close((*pbuf)->fd);
-    	free(*pbuf);
+    if (pbuf != NULL && *pbuf != NULL) {
+        uint8_t *start = (*pbuf)->a;
+        uint32_t num_bytes = (*pbuf)->offset;
+        while (num_bytes > 0) {
+            ssize_t rc = write((*pbuf)->fd, start, num_bytes);
+            if (rc < 0) {
+                fprintf(stderr, "write close error");
+                exit(1);
+            }
+            start += rc;
+            num_bytes -= rc;
+        }
+        close((*pbuf)->fd);
+        free(*pbuf);
     }
     if (pbuf != NULL) {
         *pbuf = NULL;
@@ -144,7 +144,7 @@ void write_uint8(Buffer *buf, uint8_t x) {
             start += rc;
             num_bytes -= rc;
         } while (num_bytes > 0);
-        
+
         buf->offset = 0;
     }
     buf->a[buf->offset] = x;
