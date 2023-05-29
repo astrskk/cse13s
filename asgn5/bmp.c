@@ -101,6 +101,7 @@ BMP *bmp_create(Buffer *buf) {
 
     uint32_t colors_used;
     read_uint32(buf, &colors_used);
+    read_uint32(buf, &skip32);
 
     assert(type1 == 'B');
     assert(type2 == 'M');
