@@ -45,7 +45,13 @@ bool pq_size_is_1(PriorityQueue *q){
 	}
 	return false;
 }
-
+bool pq_less_than(Node *n1, Node *n2){
+	if (n1->weight < n2->weight)
+		return true;
+	if (n1->weight > n2->weight)
+		return false;
+	return n1->symbol < n2->symbol;
+}
 void enqueue(PriorityQueue *q, Node *tree){
 	ListElement *e = calloc(1, sizeof(ListElement));
 	if (e == NULL){
@@ -53,17 +59,16 @@ void enqueue(PriorityQueue *q, Node *tree){
 		exit(1);
 	}
 	e->tree = tree;
-	double e_weight = e->tree->weight;
 	if (pq_is_empty(q))
 		q->list = e;
-	else if (e_weight < q->list->tree->weight){
+	else if (pq_less_than(e->tree, q->list->tree)){
 		e->next = q->list;
 		q->list = e;
 	}
 	else {
 		ListElement *n = q->list;
 		while(n != NULL){
-			if (n->next == NULL || e_weight < n->next->tree->weight)
+			if (n->next == NULL || pq_less_than(e->tree, n->next->tree))
 				break;
 			n = n->next;
 		}
@@ -104,10 +109,4 @@ void pq_print(PriorityQueue *q){
 	printf("=============================================\n");
 }
 
-bool pq_less_than(Node *n1, Node *n2){
-	if (n1->weight < n2->weight)
-		return true;
-	if (n1->weight > n2->weight)
-		return false;
-	return n1->symbol < n2->symbol;
-}
+

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 Node *node_create(uint8_t symbol, double weight){
-	Node *node = (Node *) malloc(sizeof(Node));
+	Node *node = calloc(1, sizeof(Node));
 	node->symbol = symbol;
 	node->weight = weight;
 	return node;
