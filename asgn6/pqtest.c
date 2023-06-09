@@ -75,11 +75,11 @@ int main(int argc, char **argv) {
     enqueue(q, n6);
     enqueue(q, n7);
     enqueue(q, n8);
-
+    pq_print(q);
     if (verbose)
         pq_print(q);
 
-    D(n,  5.0);
+    D(n, 5.0);
     D(n, 10.0);
     D(n, 12.0);
     D(n, 15.0);
