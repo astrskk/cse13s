@@ -144,4 +144,35 @@ int main(int argc, char **argv) {
                         "the file to write to outputfile\n-h : Prints this help 	message.");
         return 0;
     }
+    
+    Buffer *inbuf = read_open(infile);
+    if (inbuf == NULL){
+    	fprintf(stderr, "infile not read");
+    	exit(1);
+    }
+    
+    double *histogram = calloc(256, sizeof(double));
+    uint64_t filesize = fill_histogram(inbuf, histogram);
+    read_close(&inbuf);
+    uint16_t num_leaves;
+    Node *code_tree = create_tree(histogram, &num_leaves);
+    Code code_table[256];
+    fill_code_table(code_table, code_tree, 0, 0);
+    inbuf = read_open(infile);
+    if (inbuf == NULL){
+    	fprintf(stderr, "infile not read2");
+    	exit(1);
+    }
+    BitWriter *outbuf = bit_write_open(outfile);
+    if (outbuf == NULL){
+    	fprintf(stderr, "outfile not opened");
+    	exit(1);
+    }
+    huff_compress_file(outbuf, inbuf, filesize, num_leaves, code_tree, code_table);
+    bit_write_close(&outbuf);
+    read_close(&inbuf);
+    free(histogram);
+    node_free(&code_tree);
+    return 0;
+    
 }
