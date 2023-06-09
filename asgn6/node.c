@@ -14,9 +14,6 @@ void node_free(Node **node){
 		node_free(&(*node)->left);
 		node_free(&(*node)->right);
 		free(*node);	
-	}
-	
-	if (node != NULL){
 		*node = NULL;
 	}
 }

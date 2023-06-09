@@ -29,6 +29,8 @@ BitWriter *bit_write_open(const char *filename){
 }
 
 void bit_write_close(BitWriter **pbuf){
+	if (pbuf == NULL || *pbuf == NULL)
+			return;
 	if ((*pbuf)->bit_position > 0){
 		write_uint8((*pbuf)->underlying_stream, (*pbuf)->byte);
 		(*pbuf)->byte = 0;
