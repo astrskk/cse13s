@@ -111,7 +111,17 @@ void huff_compress_file(BitWriter *outbuf, Buffer *inbuf, uint32_t filesize, uin
 	}
 }
 
-
+void free_tree(Node *node){
+	if (node != NULL){
+		if (node->left != NULL || node->right != NULL){
+			free_tree(node->left);
+			free_tree(node->right);
+			node_free(&node);
+			node = NULL;
+		}
+		
+	}
+}
 
 int main(int argc, char **argv) {
     int opt = 0;
@@ -156,7 +166,8 @@ int main(int argc, char **argv) {
     read_close(&inbuf);
     uint16_t num_leaves;
     Node *code_tree = create_tree(histogram, &num_leaves);
-    Code code_table[256];
+    printf("hello");
+    Code code_table[256] = {0};
     fill_code_table(code_table, code_tree, 0, 0);
     inbuf = read_open(infile);
     if (inbuf == NULL){
@@ -172,7 +183,7 @@ int main(int argc, char **argv) {
     bit_write_close(&outbuf);
     read_close(&inbuf);
     free(histogram);
-    node_free(&code_tree);
+    free_tree(code_tree);
     return 0;
     
 }

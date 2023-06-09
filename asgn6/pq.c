@@ -25,15 +25,6 @@ PriorityQueue *pq_create(void){
 
 void pq_free(PriorityQueue **q){
 	if (q != NULL && *q != NULL){
-		ListElement *curr = (*q)->list;
-		ListElement *n = (*q)->list;
-		while (n != NULL){
-			n = curr->next;
-			node_free(&curr->tree);
-			free(curr);
-			curr = n;
-		}
-		
 		free(*q);
 	}
 	if (q != NULL){
