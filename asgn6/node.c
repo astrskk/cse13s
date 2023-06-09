@@ -13,6 +13,8 @@ Node *node_create(uint8_t symbol, double weight) {
 void node_free(Node **node) {
     if (node != NULL && *node != NULL) {
         free(*node);
+    }
+    if (node != NULL) {
         *node = NULL;
     }
 }

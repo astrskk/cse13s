@@ -11,7 +11,7 @@ struct BitWriter {
 };
 
 BitWriter *bit_write_open(const char *filename) {
-    BitWriter *buf = (BitWriter *) malloc(sizeof(BitWriter));
+    BitWriter *buf = calloc(1, sizeof(BitWriter));
     Buffer *underlying_stream = write_open(filename);
     if (underlying_stream == NULL) {
         write_close(&underlying_stream);

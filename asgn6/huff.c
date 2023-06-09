@@ -193,8 +193,8 @@ void free_tree(Node *node) {
         if (node->left != NULL || node->right != NULL) {
             free_tree(node->left);
             free_tree(node->right);
-            node_free(&node);
-            node = NULL;
         }
+        node_free(&node);
+        node = NULL;
     }
 }
